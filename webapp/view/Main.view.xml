@@ -1,0 +1,270 @@
+<mvc:View controllerName="DPROP.controller.Main" xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:custom="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+	xmlns:tnt="sap.tnt" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:acc="DPROP.control" xmlns:l="sap.ui.layout" xmlns:vk="sap.ui.vk"
+	xmlns:unified="sap.ui.unified">
+	<tnt:ToolHeader id="brandHeader" class="brandHeader">
+		<Image src="images/DeloitteLogo.png" height="15px" class="sapUiMediumMarginBegin sapUiTinyMarginTop sapUiTinyMarginBottom"/>
+		<ToolbarSpacer/>
+		<ToolbarSpacer/>
+		<Image src="images/LOGO.png" height="30px" class="sapUiMediumMarginEnd sapUiTinyMarginTop sapUiTinyMarginBottom"/>
+	</tnt:ToolHeader>
+	<App id="SplitApp1">
+		<Page id="videoPage" title="Deloitte Digital Twin" class="sapUiStdPage test bgImage" showHeader="false">
+			<content>
+				<!--<Button text="O" press="changeView"/>-->
+				<!--<Button text="Break" press="breakOpenModel"/>-->
+				<VBox id="statisticsView" width="100%" visible="true">
+					<!--<HBox id="warning_panel" width="27%" height="20%" justifyContent="Center" alignItems="Center"-->
+					<!--	class="sapUiSmallMarginBegin sapUiSmallMarginTop shipTile">-->
+					<!--	<core:Icon src="sap-icon://alert" color="#BB0000" class="sapUiMediumMargin" size="2em"/>-->
+					<!--	<VBox width="75%" height="100%" alignItems="Start">-->
+					<!--		<Text text="New Task Group Required" class="detailShip"></Text>-->
+					<!--		<Text text="Mission 'Alpha' 01/02/2018 - 30/04/2018" class="detailStatusCount"/>-->
+					<!--	</VBox>-->
+					<!--</HBox>-->
+					<VBox id="siri_model" width="700px" class="floatPanel2" height="220px" visible="true">
+						<HBox width="100%">
+							<VBox width="425px" height="220px" class="floatSubPanel">
+								<Text class="statusText sapUiMediumMargin" id="twinText" text=""></Text>
+							</VBox>
+							<VBox width="225px" height="220px" class="floatSubPanel">
+								<VBox width="100%" height="50%" alignItems="Center" justifyContent="Center" class="floatSubPanel2">
+									<Image src="https://media.cdn.gradconnection.com/uploads/4f0574be-60d6-4e1d-9468-f5e49fe2c237-image.png" width="100%" height="95px"/>
+								</VBox>
+								<VBox width="100%" height="50%" alignItems="Center" justifyContent="Center">
+									<Label text="Digital-TMC" class="missionType" design="Bold"></Label>
+								</VBox>
+							</VBox>
+							<VBox width="50px" height="220px" class="floatSubPanel" alignItems="Center">
+								<core:Icon id="microIcon" src="sap-icon://microphone" color="#F2F2F2" class="sapUiTinyMargin" size="2em"/>
+								<core:Icon id="soundIcon" src="sap-icon://sound-loud" color="#F2F2F2" class="sapUiTinyMargin" size="2em"/>
+								<core:Icon src="sap-icon://sys-enter" color="#F2F2F2" class="sapUiTinyMargin" press="changeView" size="2em"/>
+								<core:Icon src="sap-icon://action-settings" color="#F2F2F2" class="sapUiTinyMargin" press="breakOpenModel" size="2em"/>
+							</VBox>
+						</HBox>
+					</VBox>
+					<HBox id="dashboard_panel" width="99%" class="sapUiTinyMargin sapUiLargeMarginTop floatPanel" height="70%" justifyContent="Center"
+						alignItems="Center" visible="false">
+						<FlexBox width="75%" height="98%" id="map_canvas" class="sapUiSmallMarginTopBottom sapUiSmallMarginEnd" fitContainer="true"/>
+						<VBox width="23%" class="sapUiSmallMarginTopBottom">
+							<VBox id="vidPlayer" alignItems="Start"/>
+							<FlexBox width="438px" height="400px" id="testPanel" class="sapUiSmallMarginTop" fitContainer="true"/>
+						</VBox>
+					</HBox>
+					<HBox id="video_panel" width="99%" class="sapUiTinyMargin sapUiLargeMarginTop floatPanel" height="70%" justifyContent="Center"
+						alignItems="Center" visible="false">
+						<!--<acc:ChartJSControl width="500" height="250" responsive="true" chartType="bar" id="videoFootcountChart"-->
+						<!--	options="{title: {display: 'true', text: 'Aggregated Footcount'}}"/>-->
+						<VBox justifyContent="Center" alignItems="Center" class="sapUiSmallMarginEnd">
+							<GenericTile class="sapUiSmallMargin sapUiMediumMarginBegin sapUiMediumMarginEnd" header="Car" subheader="Count" press="press">
+								<tileContent>
+									<TileContent unit="Tracked">
+										<content>
+											<NumericContent id="carText" value="0" valueColor="Critical" indicator="Up" icon="sap-icon://car-rental"/>
+										</content>
+									</TileContent>
+								</tileContent>
+							</GenericTile>
+							<GenericTile class="sapUiSmallMargin sapUiMediumMarginBegin sapUiMediumMarginEnd" header="Bus" subheader="Count" press="press">
+								<tileContent>
+									<TileContent unit="Tracked" footer="">
+										<content>
+											<NumericContent id="busText" value="0" valueColor="Critical" indicator="Down" icon="sap-icon://bus-public-transport"/>
+										</content>
+									</TileContent>
+								</tileContent>
+							</GenericTile>
+							<GenericTile class="sapUiSmallMargin sapUiMediumMarginBegin sapUiMediumMarginEnd" header="Incidents" subheader="Count" press="press">
+								<tileContent>
+									<TileContent unit="Reported" footer="">
+										<content>
+											<NumericContent id="incidentText" value="0" valueColor="Error" indicator="Up" icon="sap-icon://alert"/>
+										</content>
+									</TileContent>
+								</tileContent>
+							</GenericTile>
+						</VBox>
+						<VBox justifyContent="Center" alignItems="Center" class="sapUiSmallMarginEnd">
+							<GenericTile class="sapUiSmallMargin sapUiMediumMarginBegin sapUiMediumMarginEnd" header="Bicycle" subheader="Count" press="press">
+								<tileContent>
+									<TileContent unit="Tracked">
+										<content>
+											<NumericContent id="bicycleText" value="0" valueColor="Critical" indicator="Up" icon="sap-icon://physical-activity"/>
+										</content>
+									</TileContent>
+								</tileContent>
+							</GenericTile>
+							<GenericTile class="sapUiSmallMargin sapUiMediumMarginBegin sapUiMediumMarginEnd" header="Truck" subheader="Count" press="press">
+								<tileContent>
+									<TileContent unit="Tracked" footer="">
+										<content>
+											<NumericContent id="truckText" value="0" valueColor="Critical" indicator="Down" icon="sap-icon://shipping-status"/>
+										</content>
+									</TileContent>
+								</tileContent>
+							</GenericTile>
+							<GenericTile class="sapUiSmallMargin sapUiMediumMarginBegin sapUiMediumMarginEnd" header="Accidents" subheader="Count" press="press">
+								<tileContent>
+									<TileContent unit="Reported" footer="">
+										<content>
+											<NumericContent id="accidentText" value="0" valueColor="Error" indicator="Up" icon="sap-icon://vehicle-repair"/>
+										</content>
+									</TileContent>
+								</tileContent>
+							</GenericTile>
+						</VBox>
+						<HBox justifyContent="Center" alignItems="Center" class="sapUiMediumMarginBegin">
+							<VBox id="vidPlayer2" alignItems="Start" class="sapUiMediumMarginEnd"/>
+							<!--<FlexBox width="750px" height="720px" id="map_canvas" class="sapUiMediumMarginBegin" fitContainer="true"/>-->
+						</HBox>
+					</HBox>
+					<HBox id="impact_panel" width="99%" class="sapUiTinyMargin sapUiLargeMarginTop floatPanel" height="70%" justifyContent="Center"
+						alignItems="Center" visible="false">
+						<FlexBox width="50%" height="98%" id="map_canvas3" class="sapUiSmallMarginTopBottom sapUiSmallMarginEnd" fitContainer="true"/>
+						<VBox width="48%" class="sapUiSmallMarginTopBottom" alignItems="Center">
+							<HBox width="90%" height="10%" justifyContent="Start" class="sapUiMediumMarginTop">
+								<core:Icon src="sap-icon://example" color="#ffffff" size="1.3rem" class="sapUiSmallMargin"/>
+								<Text text="Lanes 1 and 3 closed for fire fighters to fight the blaze and keep exiting bus passengers safe."
+									class="dashStatGreySmall sapUiTinyMargin sapUiSmallMarginTop"/>
+							</HBox>
+							<HBox width="90%" height="10%" justifyContent="Start" class="sapUiMediumMarginTop">
+								<core:Icon src="sap-icon://example" color="#ffffff" size="1.3rem" class="sapUiSmallMargin"/>
+								<Text text="Traffic is now stationary northbound in the Sydney Harbour tunnel as drivers attempt to divert away from crossing the bridge."
+									class="dashStatGreySmall sapUiTinyMargin sapUiSmallMarginTop"/>
+							</HBox>
+							<HBox width="90%" height="10%" justifyContent="Start" class="sapUiMediumMarginTop">
+								<core:Icon src="sap-icon://example" color="#ffffff" size="1.3rem" class="sapUiSmallMargin"/>
+								<Text text="Several vehicles on the Cahill Expressway have pulled over due to overheating engines due to the line of stationary vehicles."
+									class="dashStatGreySmall sapUiTinyMargin sapUiSmallMarginTop"/>
+							</HBox>
+							<HBox width="90%" height="10%" justifyContent="Start" class="sapUiMediumMarginTop">
+								<core:Icon src="sap-icon://example" color="#ffffff" size="1.3rem" class="sapUiSmallMargin"/>
+								<Text text="A minor accident involving 4 southbound vehicles has occurred on the northern side approach of the SHB."
+									class="dashStatGreySmall sapUiTinyMargin sapUiSmallMarginTop"/>
+							</HBox>
+							<HBox width="90%" height="10%" justifyContent="Start" class="sapUiMediumMarginTop">
+								<core:Icon src="sap-icon://example" color="#ffffff" size="1.3rem" class="sapUiSmallMargin"/>
+								<Text text="SHB northbound queues are impacting the Anzac Bridge traffic heading into the city."
+									class="dashStatGreySmall sapUiTinyMargin sapUiSmallMarginTop"/>
+							</HBox>
+							<HBox width="90%" height="10%" justifyContent="Start" class="sapUiMediumMarginTop">
+								<core:Icon src="sap-icon://example" color="#ffffff" size="1.3rem" class="sapUiSmallMargin"/>
+								<Text text="Pedestrian access on the eastern side of the harbour bridge has been closed."
+									class="dashStatGreySmall sapUiTinyMargin sapUiSmallMarginTop"/>
+							</HBox>
+						</VBox>
+					</HBox>
+					<VBox id="options_panel" width="99%" class="sapUiTinyMargin sapUiLargeMarginTop floatPanel" height="70%" justifyContent="Center"
+						alignItems="Center" visible="false">
+						<HBox width="99%" height="98%" justifyContent="SpaceAround" alignItems="Center">
+							<VBox width="26%" height="95%" class="missionTile">
+								<HBox width="100%" height="15%">
+									<VBox width="100%" height="100%" alignItems="Center" justifyContent="Center">
+										<Label text="Do Nothing" class="optionText"></Label>
+									</VBox>
+								</HBox>
+								<VBox width="100%" height="70%" id="options_map0" justifyContent="Center"></VBox>
+								<HBox width="100%" height="15%">
+									<VBox width="50%" height="100%" class="optionTileTopRight" alignItems="Center" justifyContent="Center">
+										<Label text="Duration" class="optionText"></Label>
+										<Label text="6 hours" class="optionType"></Label>
+									</VBox>
+									<VBox width="50%" height="100%" class="optionTileTop" alignItems="Center" justifyContent="Center">
+										<Label text="Congestion" class="optionText"></Label>
+										<Label text="12 km" class="optionType"></Label>
+									</VBox>
+								</HBox>
+							</VBox>
+							<VBox width="2px" height="99%" class="missionTile"/>
+							<VBox width="26%" height="95%" class="missionTile">
+								<HBox width="100%" height="15%">
+									<VBox width="100%" height="100%" alignItems="Center" justifyContent="Center">
+										<Label text="Option" class="optionText"></Label>
+										<Label text="A" class="optionType"></Label>
+									</VBox>
+								</HBox>
+								<VBox width="100%" height="70%" id="options_map1" justifyContent="Center"></VBox>
+								<HBox width="100%" height="15%">
+									<VBox width="50%" height="100%" class="optionTileTopRight" alignItems="Center" justifyContent="Center">
+										<Label text="Duration" class="optionText"></Label>
+										<Label text="4 hours" class="optionType"></Label>
+									</VBox>
+									<VBox width="50%" height="100%" class="optionTileTop" alignItems="Center" justifyContent="Center">
+										<Label text="Congestion" class="optionText"></Label>
+										<Label text="7km" class="optionType"></Label>
+									</VBox>
+								</HBox>
+							</VBox>
+							<VBox width="26%" height="95%" class="missionTile">
+								<HBox width="100%" height="15%">
+									<VBox width="100%" height="100%" alignItems="Center" justifyContent="Center">
+										<Label text="Option" class="optionText"></Label>
+										<Label text="B" class="optionType"></Label>
+									</VBox>
+								</HBox>
+								<VBox width="100%" height="70%" id="options_map2" justifyContent="Center"></VBox>
+								<HBox width="100%" height="15%">
+									<VBox width="50%" height="100%" class="optionTileTopRight" alignItems="Center" justifyContent="Center">
+										<Label text="Duration" class="optionText"></Label>
+										<Label text="5 hours" class="optionType"></Label>
+									</VBox>
+									<VBox width="50%" height="100%" class="optionTileTop" alignItems="Center" justifyContent="Center">
+										<Label text="Congestion" class="optionText"></Label>
+										<Label text="6km" class="optionType"></Label>
+									</VBox>
+								</HBox>
+							</VBox>
+						</HBox>
+					</VBox>
+					<HBox id="details_panel" width="99%" class="sapUiTinyMargin sapUiLargeMarginTop floatPanel" height="70%" justifyContent="Center"
+						alignItems="Center" visible="false">
+						<Label id="time" text="5:40PM" class="sapUiLargeMargin detailShip"/> 
+						<FlexBox width="75%" height="98%" id="map_canvas2" class="sapUiSmallMarginTopBottom sapUiSmallMarginEnd" fitContainer="true"/>
+					</HBox>
+					<VBox id="confirm_panel" width="99%" class="sapUiTinyMargin sapUiLargeMarginTop floatPanel" height="70%" justifyContent="Center"
+						alignItems="Center" visible="false">
+						<HBox width="99%" height="98%" justifyContent="Center" alignItems="Center">
+							<VBox width="26%" height="95%" class="missionTile sapUiLargeMarginLeftRight">
+								<HBox width="100%" height="15%">
+									<VBox width="100%" height="100%" alignItems="Center" justifyContent="Center">
+										<Label text="Option" class="optionText"></Label>
+										<Label text="B" class="optionType"></Label>
+									</VBox>
+								</HBox>
+								<VBox width="100%" height="70%" id="options_map2_confirm" justifyContent="Center"></VBox>
+								<HBox width="100%" height="15%">
+									<VBox width="50%" height="100%" class="optionTileTopRight" alignItems="Center" justifyContent="Center">
+										<Label text="Duration" class="optionText"></Label>
+										<Label text="5 hours" class="optionType"></Label>
+									</VBox>
+									<VBox width="50%" height="100%" class="optionTileTop" alignItems="Center" justifyContent="Center">
+										<Label text="Congestion" class="optionText"></Label>
+										<Label text="6km" class="optionType"></Label>
+									</VBox>
+								</HBox>
+							</VBox>
+							<VBox width="50%" alignItems="Center" class="sapUiSmallMargin sapUiLargeMarginTop" height="85%">
+								<!--<HBox width="60%" height="15%" justifyContent="Center" class="sapUiLargeMarginTop floatSubPanel2">-->
+								<core:Icon src="sap-icon://sys-enter" color="#00205B" size="10rem" class="sapUiSmallMargin"/>
+								<Label text="Option B Selected" class="dashStatGreen sapUiTinyMargin" design="Bold"/>
+								<!--</HBox>-->
+								<HBox width="70%" height="10%" justifyContent="Center" class="sapUiMediumMarginTop">
+									<core:Icon src="sap-icon://example" color="#ffffff" size="1.3rem" class="sapUiSmallMargin"/>
+									<Label text="Minimise duration of congestion" class="dashStatGreySmall sapUiTinyMargin sapUiSmallMarginTop"/>
+								</HBox>
+								<HBox width="70%" height="10%" justifyContent="Center" class="sapUiMediumMarginTop">
+									<core:Icon src="sap-icon://example" color="#ffffff" size="1.3rem" class="sapUiSmallMargin"/>
+									<Label text="Minimise congestion density" class="dashStatGreySmall sapUiTinyMargin sapUiSmallMarginTop"/>
+								</HBox>
+								<HBox width="70%" height="10%" justifyContent="Center" class="sapUiMediumMarginTop">
+									<core:Icon src="sap-icon://example" color="#ffffff" size="1.3rem" class="sapUiSmallMargin"/>
+									<Label text="Minimise disruptions to peak hour traffic" class="dashStatGreySmall sapUiTinyMargin sapUiSmallMarginTop"/>
+								</HBox>
+							</VBox>
+						</HBox>
+					</VBox>
+				</VBox>
+			</content>
+		</Page>
+	</App>
+</mvc:View>
